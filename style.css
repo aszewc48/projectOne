@@ -1,6 +1,13 @@
+@font-face {
+    font-family: newFont;
+    src: url('./images/Silkscreen-Bold.ttf');
+}
+
 html,
 body{
     background-color: black;
+    font-family: newFont;
+    font-size: 2em
 }
 
 canvas {
@@ -8,4 +15,30 @@ canvas {
     display: flex;
     margin-left: 25%;
     margin-top: 5%;
+}
+h1{
+    position: absolute;
+    color: white;
+    font-size: 0.75em;
+    top: 1%;
+    right: 24%
+}
+#start{
+    font-family: newFont;
+    font-size: 0.5em;
+    border-radius: 12px;
+    background-color: red;
+    position: relative;
+    bottom: 350px;
+    left: 41%
+}
+#tryAgain{
+    display:none;
+    font-family: newFont;
+    font-size: 0.5em;
+    border-radius: 12px;
+    background-color: red;
+    position: relative;
+    bottom: 220px;
+    left: 41%
 }
