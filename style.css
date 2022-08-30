@@ -3,6 +3,18 @@
     src: url('./images/Silkscreen-Bold.ttf');
 }
 
+
+#image {
+    display: none;
+    position: relative;
+    bottom: 420px;
+    left: 45%;
+    width: 100px;
+    height: 500px;
+    background: url('./images/knightExplore.png');
+    background-size: cover;
+  }
+
 html,
 body{
     background-color: black;
@@ -41,4 +53,171 @@ h1{
     position: relative;
     bottom: 220px;
     left: 41%
+}
+.tutorial {
+    display: none;
+    position: absolute;
+    color: white;
+    left: 5%;
+    top: 30%;
+    font-family: newFont;
+    font-size: 0.4em;
+    width: 15%
+}
+.arrowKeys {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 45%;
+    width: 20%
+}
+#skelOne {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/skelOne.png');
+    background-size: cover;
+}
+#skelTwo {
+    display: none;
+    position: absolute;
+    top: 29%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/skelTwo.png');
+    background-size: cover;
+}
+#skelThree {
+    display: none;
+    position: absolute;
+    top: 26%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/skelThree.png');
+    background-size: cover;
+}
+#skelFour {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/skelFour.png');
+    background-size: cover;
+}
+#skelFive {
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/skelFive.png');
+    background-size: cover;
+}
+#skelCapOne {
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/skelCapOne.png');
+    background-size: cover;
+}
+#skelCapTwo {
+    display: none;
+    position: absolute;
+    top: 27%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/skelCapTwo.png');
+    background-size: cover;
+}
+#gobOne {
+    display: none;
+    position: absolute;
+    top: 29%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/gobOne.png');
+    background-size: cover;
+}
+#gobTwo {
+    display: none;
+    position: absolute;
+    top: 29%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/gobTwo.png');
+    background-size: cover;
+}
+#gobThree {
+    display: none;
+    position: absolute;
+    top: 31%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/gobThree.png');
+    background-size: cover;
+}
+#orc {
+    display: none;
+    position: absolute;
+    top: 26%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/orc.png');
+    background-size: cover;
+}
+#demOne {
+    display: none;
+    position: absolute;
+    top: 31%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/demOne.png');
+    background-size: cover;
+}
+#demTwo {
+    display: none;
+    position: absolute;
+    top: 26%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/demTwo.png');
+    background-size: cover;
+}
+#demThree {
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/demThree.png');
+    background-size: cover;
+}
+#demLord {
+    display: none;
+    position: absolute;
+    top: 28%;
+    left: 40%;
+    width: 250px;
+    height: 250px;
+    background-image: url('./images/demLord.png');
+    background-size: cover;
 }
