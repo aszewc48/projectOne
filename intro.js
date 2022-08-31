@@ -1,12 +1,19 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+let battle = false
+let room
+let ranMon
 let  myMusic = new Audio("./images/dungeon.mp3")
 let moveSound = new Audio('./images/movement.wav')
 let victorySound = new Audio('./images/victory.mp3')
 let button = document.querySelector("#start")
 let tutorial = document.querySelector(".tutorial")
+let tutorialBattle = document.querySelector(".tutorialBattle")
 let arrowKeys = document.querySelector(".arrowKeys")
+let arrowKeysTwo = document.querySelector(".arrowKeysTwo")
+let playerDefend = document.querySelector("#knightDefend")
+let mainChar = document.querySelector("#image")
     button.addEventListener("click",function(){
         myMusic.play();
         randomRoom()
@@ -51,6 +58,8 @@ let blueCount = 0
 let greenCount = 0
 let yellowCount = 0
 
+let playerBlock
+
 let animation
 function animateScript() {
 let position = 95
@@ -66,9 +75,77 @@ else
 , interval )
 } 
 
+let slash
+function animateSlash() {
+    let slashArt = document.querySelector("#slash")
+    slashArt.style.display = 'block'
+    let position = 170
+    const interval = 100
+    slash = setInterval (() => {
+        document.getElementById("slash").style.backgroundPosition = `-${position}px 0px`
+        if(position < 680) { 
+        position = position + 170
+        } else {
+            slashArt.style.display = 'none'
+            clearInterval(slash)}
+    }, interval)   
+}
+
+let attack
+function animateAttack() {
+    let attackArt = document.querySelector("#attack")
+    attackArt.style.display = 'block'
+    let position = 108
+    const interval = 100
+    attack = setInterval (() => {
+        document.getElementById("attack").style.backgroundPosition = `-${position}px 0px`
+        if(position < 864) { 
+        position = position + 108
+        } else {
+            attackArt.style.display = 'none'
+            clearInterval(attack)}
+    }, interval)   
+}
+
+let knightSlash
+function animateKnightSlash() {
+    let mainChar = document.querySelector("#image")
+    mainChar.style.display = 'none'
+    let knightSlashArt = document.querySelector("#knightSlash")
+    knightSlashArt.style.display = 'block'
+    let position = 120
+    const interval = 250
+    knightSlash = setInterval (() => {
+        document.getElementById("knightSlash").style.backgroundPosition = `-${position}px 0px`
+        if(position < 360) { 
+        position = position + 120
+        } else {
+            mainChar.style.display = 'block'
+            knightSlashArt.style.display = 'none'
+            clearInterval(knightSlash)}
+    }, interval)   
+}
+
+
 function stopAnimate() {
-    clearInterval(tID);
+    clearInterval(animation);
     }
+
+class Knight {
+    constructor(health,attack,defense) {
+        this.health = 10
+        this.attack = 2
+        this.defense = 0
+    }
+}
+
+class Enemy {
+    constructor(health,attack,defense) {
+        this.health = health
+        this.attack = attack - defense
+        this.defense = defense
+    }
+}
 
 class Player {
     constructor(x,y,w,h) {
@@ -94,6 +171,12 @@ class Player {
 }
 
 let p1 = new Player(Player.x,Player.y,Player.w,Player.h)
+let char = new Knight
+let skeleton = new Enemy(5,1,0)
+let skeletonTwo = new Enemy(3,2,0)
+let skeletonThree = new Enemy(3,1,0)
+let skeletonFour = new Enemy(10,1,0)
+let skeletonFive = new Enemy(5,2,0)
 
 class transition {
     constructor(x,y,w,h) {
@@ -115,6 +198,12 @@ class transition {
 }
 let fade = new transition
 
+function disable() {
+ document.onkeydown = function (e) { return false }
+}
+function enable() {
+    document.onkeydown = function (e) { return true }
+}
 function blueRoomMove() {
     let myInterval = setInterval(() => {
         fade.draw()
@@ -171,6 +260,125 @@ function stageExit() {
         randomRoomYellow()
     }
 }
+function tutorialEncounter(){
+    setTimeout(() => {
+    skelOne.style.display = 'block'
+    setTimeout(() => {
+        attackDefend()
+    },1000)
+    },1300)
+}
+function spawnSkeleton() {
+    return skeleton
+}
+function blueRanEncounter() {
+    let ranMonster = Math.floor(Math.random()*10+1)
+    switch(ranMonster) {
+        case 1:
+            ranMon = skeleton
+            setTimeout(() => {
+            skelOne.style.display = 'block'
+            setTimeout(() =>)
+        })
+        case 2:
+            ranMon = skeletonTwo
+            skelTwo.style.display = 'block'
+        case 3:
+            ranMon = skeletonThree
+            skelThree.style.display = 'block'
+        case 4:
+            ranMon = skeletonFour
+            skelFour.style.display = 'block'
+        case 5:
+            ranMon = skeletonFive
+            skelFive.style.display = 'block'
+        case 6:
+            enable()
+            blueRoomSelector()
+        case 7:
+            enable()
+            blueRoomSelector()
+        case 8:
+            enable()
+            blueRoomSelector()
+        case 9:
+            enable()
+            blueRoomSelector()
+        case 10:
+            enable()
+            blueRoomSelector()
+    }
+}
+function attackDefend() {
+    animateKnightSlash()
+    setTimeout(() => {
+        animateSlash()
+        setTimeout(() => {
+            arrowKeysTwo.style.display = 'block'
+            tutorialBattle.style.display = 'block'
+            skeleton.health = skeleton.health - char.attack
+            lifeCalc()
+            if(battle === true) {
+                enable()
+                document.onkeydown = function() {
+                    switch(event.code) {
+                        case "ArrowUp":
+                            playerBlock = 0
+                            console.log(playerDefend)
+                            defendCalc()
+                            disable()
+                            break
+                        case "ArrowLeft":
+                            playerBlock = 1
+                            defendCalc()
+                            disable()
+                            break
+                        case "ArrowRight":
+                            playerBlock = 2
+                            defendCalc()
+                            disable()
+                            break
+                    }
+                }
+            }
+        },350)
+    }, 500)
+
+}
+
+function defendCalc() {
+    let enemyAttack = Number(Math.floor(Math.random()*3))
+    if(enemyAttack === playerBlock) {
+        mainChar.style.display = 'none'
+        playerDefend.style.display = 'block'
+        setTimeout(() => {
+            playerDefend.style.display = 'none'
+            mainChar.style.display = 'block'
+            attackDefend()
+        },1500)
+    } else {
+        animateAttack()
+        char.health = char.health + char.defense - skeleton.attack
+        setTimeout(() => {
+            attackDefend()
+    },1500)
+}
+}
+function lifeCalc() {
+    if(char.health <= 0) {
+        alert("Game Over!")
+        window.location.reload()
+    } else if(skeleton.health <= 0) {
+        skelOne.style.display = 'none'
+        battle = false
+        arrowKeysTwo.style.display = 'none'
+        tutorialBattle.style.display = 'none'
+        enable()
+        blueRoomSelector()
+    } else {
+        battle=true
+    }
+}
 
 function randomRoom() {
     let ran = Math.floor((Math.random()*4)+1)
@@ -183,22 +391,28 @@ function randomRoom() {
             document.onkeydown = function() {
                 switch(event.code) {
                     case "ArrowUp":
+                        disable() 
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
-                        arrowKeys.style.display = 'none'                                                     
+                        arrowKeys.style.display = 'none'
+                        tutorialEncounter()                                                                          
                         break
                     case "ArrowLeft":
+                        disable()
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()                        
                         break
                     case "ArrowRight":
+                        disable() 
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()
                         break
                 }
             }
@@ -213,16 +427,20 @@ function randomRoom() {
             document.onkeydown = function() {
                 switch(event.code) {
                     case "ArrowLeft":
+                        disable()
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()
                         break
                     case "ArrowRight":
+                        disable() 
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()
                         break
                 }
             }
@@ -236,17 +454,21 @@ function randomRoom() {
             p1.start()
             document.onkeydown = function() {
                 switch(event.code) {
-                    case "ArrowUp":                   
+                    case "ArrowUp":
+                        disable()            
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()
                         break
                     case "ArrowLeft":
+                        disable()
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()
                         break
 
                 }
@@ -261,17 +483,21 @@ function randomRoom() {
             p1.start()
             document.onkeydown = function() {
                 switch(event.code) {
-                    case "ArrowUp":                   
+                    case "ArrowUp":
+                        disable()                   
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()
                         break
                     case "ArrowRight":
+                        disable()
                         blueRoomMove()
                         p1.hide()
                         tutorial.style.display = 'none'
                         arrowKeys.style.display = 'none'
+                        tutorialEncounter()
                         break
                 }
             }
@@ -439,88 +665,121 @@ function randomRoom() {
             }
     }
 }
+function blueRoomAll() {
+document.onkeydown = function() {
+    switch(event.code) {
+        case "ArrowUp":
+            blueRoomMove()
+            p1.hide()
+            break
+        case "ArrowLeft":
+            blueRoomMove()
+            p1.hide()
+            break
+        case "ArrowRight":
+            blueRoomMove()
+            p1.hide()
+            break
+    }
+}
+}
+function blueRoomLeftRight() {
+document.onkeydown = function() {
+    switch(event.code) {
+        case "ArrowLeft":
+            blueRoomMove()
+            p1.hide()
+            break
+        case "ArrowRight":
+            blueRoomMove()
+            p1.hide()
+            break
+    }
+}
+}
+function blueRoomUpLeft() {
+document.onkeydown = function() {
+    switch(event.code) {
+        case "ArrowUp":     
+            blueRoomMove()
+            p1.hide()
+            break
+        case "ArrowLeft":
+            blueRoomMove()
+            p1.hide()
+            break
+    }
+}
+}
+function blueRoomUpRight() {
+document.onkeydown = function() {
+    switch(event.code) {
+        case "ArrowUp":
+            blueRoomMove()                   
+            p1.hide()
+            break
+        case "ArrowRight":
+            blueRoomMove()
+            p1.hide()
+            break
+    }
+}
+}
+function blueRoomSelector() {
+    switch(room) {
+        case "all":
+            blueRoomAll()
+            break
+        case "leftRight":
+            blueRoomLeftRight()
+            break
+        case "upLeft":
+            blueRoomUpLeft()
+            break
+        case "upRight":
+            blueRoomUpLeft()
+            break
+    }
+}
 function randomRoom2() {
     let ran = Math.floor((Math.random()*4)+1)
     switch(ran) {
         case 1:
+            disable()
             blueCount++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueAll,0,0,700,500)
             p1.explore()
-            document.onkeydown = function() {
-                switch(event.code) {
-                    case "ArrowUp":
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                    case "ArrowLeft":
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                    case "ArrowRight":
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                }
-            }
-            break
+            room = "all"
+            break            
         case 2:
+            disable()
             blueCount ++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueLeftRight,0,0,700,500)
             p1.explore()
-            document.onkeydown = function() {
-                switch(event.code) {
-                    case "ArrowLeft":
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                    case "ArrowRight":
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                }
-            }
+            room = "leftRight"
             break
         case 3:
+            disable()
             blueCount ++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueUpLeft,0,0,700,500)
             p1.explore()
-            document.onkeydown = function() {
-                switch(event.code) {
-                    case "ArrowUp":     
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                    case "ArrowLeft":
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                }
-            }
+            room = "upLeft"
             break
         case 4:
+            disable()
             blueCount ++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueUpRight,0,0,700,500)
             p1.explore()
-            document.onkeydown = function() {
-                switch(event.code) {
-                    case "ArrowUp":
-                        blueRoomMove()                   
-                        p1.hide()
-                        break
-                    case "ArrowRight":
-                        blueRoomMove()
-                        p1.hide()
-                        break
-                }
-            }
+            room = "upRight"
+            console.log('hi')
+            enable()
             break
-        }
-    }
-
+            }
+}
 function victory() {
     myMusic.pause()
     victorySound.play()

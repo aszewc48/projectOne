@@ -14,6 +14,48 @@
     background: url('./images/knightExplore.png');
     background-size: cover;
   }
+  #knightSlash {
+    display: none;
+    position: absolute;
+    bottom: 60px;
+    left: 45%;
+    width: 120px;
+    height: 200px;
+    background: url('./images/knightSlash.png');
+    background-size: cover;
+}
+#slash {
+    display: none;
+    position: absolute;
+    bottom: 195px;
+    left: 45%;
+    width: 170px;
+    height: 200px;
+    background: url('./images/slashRight.png');
+    background-size: cover;
+    z-index: 1;
+}
+#knightDefend{
+    display: none;
+    position: absolute;
+    bottom: 90px;
+    left: 45%;
+    width: 100px;
+    height: 200px;
+    background: url("./images/knightDefend.png");
+    background-size: cover;
+}
+#attack {
+    display: none;
+    position: absolute;
+    bottom: 30px;
+    left: 44%;
+    width: 108px;
+    height: 200px;
+    background: url('./images/attack.png');
+    background-size: cover;
+    z-index: 1;
+}
 
 html,
 body{
@@ -64,10 +106,27 @@ h1{
     font-size: 0.4em;
     width: 15%
 }
+.tutorialBattle {
+    display: none;
+    position: absolute;
+    color: white;
+    right: 5%;
+    top: 30%;
+    font-family: newFont;
+    font-size: 0.4em;
+    width:15%
+}
 .arrowKeys {
     display: none;
     position: absolute;
     left: 0;
+    top: 45%;
+    width: 20%
+}
+.arrowKeysTwo {
+    display: none;
+    position: absolute;
+    right: 0;
     top: 45%;
     width: 20%
 }
