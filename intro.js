@@ -2,9 +2,13 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 let battle = false
+let green = false
 let room
 let ranMon
-let  myMusic = new Audio("./images/dungeon.mp3")
+let shieldSound = new Audio("./images/shield.mp3")
+let enemyAttackSound = new Audio("./images/enemyAttackSound.wav")
+let slashSound = new Audio("./images/slash.wav")
+let myMusic = new Audio("./images/dungeon.mp3")
 let moveSound = new Audio('./images/movement.wav')
 let victorySound = new Audio('./images/victory.mp3')
 let button = document.querySelector("#start")
@@ -14,12 +18,16 @@ let arrowKeys = document.querySelector(".arrowKeys")
 let arrowKeysTwo = document.querySelector(".arrowKeysTwo")
 let playerDefend = document.querySelector("#knightDefend")
 let mainChar = document.querySelector("#image")
+let attackSymbol = document.querySelector('#attackSymbol')
+let defendSymbol = document.querySelector('#defendSymbol')
     button.addEventListener("click",function(){
         myMusic.play();
         randomRoom()
         button.style.display = 'none'
         tutorial.style.display = 'block'
         arrowKeys.style.display = 'block'
+        drawHealth()
+        drawHeart()
     })
 
 const blueAll = new Image()
@@ -37,6 +45,7 @@ const yellowUpRight = new Image()
 const exitOne = new Image()
 const exitTwo = new Image()
 const knightExplore = new Image()
+const heart = new Image()
 
 blueAll.src = "./images/blue all.png"
 blueLeftRight.src = "./images/blue leftRight.png"
@@ -53,12 +62,22 @@ yellowUpRight.src = "./images/yellow upRight.png"
 exitOne.src = "./images/ExitOne.png"
 exitTwo.src = "./images/ExitTwo.png"
 knightExplore.src = './images/knightExplore.png'
+heart.src = './images/heart.png'
 
 let blueCount = 0
 let greenCount = 0
 let yellowCount = 0
 
 let playerBlock
+
+function drawHeart() {
+    ctx.drawImage(heart,0,490,50,50)
+}
+function drawHealth(){
+        ctx.fillStyle = 'white'
+        ctx.font = '30pt sans-serif'
+        ctx.fillText(`${char.health}`, 50 , 528)
+}
 
 let animation
 function animateScript() {
@@ -107,6 +126,22 @@ function animateAttack() {
     }, interval)   
 }
 
+let attackOnShield
+function animateAttackOnShield() {
+    let attackOnShieldArt = document.querySelector("#attackOnShield")
+    attackOnShieldArt.style.display = 'block'
+    let position = 108
+    const interval = 100
+    attackOnShield = setInterval (() => {
+        document.getElementById("attackOnShield").style.backgroundPosition = `-${position}px 0px`
+        if(position < 864) { 
+        position = position + 108
+        } else {
+            attackOnShieldArt.style.display = 'none'
+            clearInterval(attackOnShield)}
+    }, interval)   
+}
+
 let knightSlash
 function animateKnightSlash() {
     let mainChar = document.querySelector("#image")
@@ -142,7 +177,7 @@ class Knight {
 class Enemy {
     constructor(health,attack,defense) {
         this.health = health
-        this.attack = attack - defense
+        this.attack = attack - char.defense
         this.defense = defense
     }
 }
@@ -216,7 +251,7 @@ function blueRoomMove() {
 }
 
 function stageGreen(){
-    if(blueCount > 10 && (Math.random()*10) > 8.5) {
+    if(blueCount > 10 ) {
         randomRoomGreen()
     } else {
         randomRoom2()
@@ -268,49 +303,101 @@ function tutorialEncounter(){
     },1000)
     },1300)
 }
-function spawnSkeleton() {
-    return skeleton
+function encounterChoice(){
+    return Math.floor((Math.random()*10)+1)
 }
 function blueRanEncounter() {
-    let ranMonster = Math.floor(Math.random()*10+1)
+    ranMonster = encounterChoice()
     switch(ranMonster) {
         case 1:
             ranMon = skeleton
             setTimeout(() => {
             skelOne.style.display = 'block'
-            setTimeout(() =>)
-        })
+            setTimeout(() =>{
+                ranAttackDefend()
+            },1000)
+        },1300)
+        break
         case 2:
             ranMon = skeletonTwo
+            setTimeout(() => {
             skelTwo.style.display = 'block'
+            setTimeout(() => {
+                ranAttackDefend()
+            },1000)
+        },1300)
+        break
         case 3:
             ranMon = skeletonThree
+            setTimeout(() => {
             skelThree.style.display = 'block'
+            setTimeout(() => {
+                ranAttackDefend()
+            },1000)
+        },1300)
+        break
         case 4:
             ranMon = skeletonFour
+            setTimeout(() => {
             skelFour.style.display = 'block'
+            setTimeout(() => {
+                ranAttackDefend()
+            },1000)
+        },1300)
+        break
         case 5:
             ranMon = skeletonFive
+            setTimeout(() => {
             skelFive.style.display = 'block'
+            setTimeout(() => {
+                ranAttackDefend()
+            },1000)
+        },1300)
+        break
         case 6:
+            setTimeout(() => {
+            console.log(room)
             enable()
             blueRoomSelector()
+        },1300)
+            break
         case 7:
-            enable()
-            blueRoomSelector()
+            setTimeout(() => {
+                console.log(room)
+                enable()
+                blueRoomSelector()
+            },1300)
+            break
         case 8:
-            enable()
-            blueRoomSelector()
+            setTimeout(() => {
+                console.log(room)
+                enable()
+                blueRoomSelector()
+            },1300)
+            break
         case 9:
-            enable()
-            blueRoomSelector()
+            setTimeout(() => {
+                console.log(room)
+                enable()
+                blueRoomSelector()
+            },1300)
+            break
         case 10:
-            enable()
-            blueRoomSelector()
+            setTimeout(() => {
+                console.log(room)
+                enable()
+                blueRoomSelector()
+            },1300)
+            break
     }
 }
 function attackDefend() {
+    attackSymbol.style.display = 'block'
+    attackSymbol.style.backgroundColor = 'red'
+    defendSymbol.style.display = 'block'
+    defendSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
     animateKnightSlash()
+    slashSound.play()
     setTimeout(() => {
         animateSlash()
         setTimeout(() => {
@@ -320,11 +407,12 @@ function attackDefend() {
             lifeCalc()
             if(battle === true) {
                 enable()
+                attackSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
+                defendSymbol.style.backgroundColor = 'red'
                 document.onkeydown = function() {
                     switch(event.code) {
                         case "ArrowUp":
                             playerBlock = 0
-                            console.log(playerDefend)
                             defendCalc()
                             disable()
                             break
@@ -345,22 +433,93 @@ function attackDefend() {
     }, 500)
 
 }
+function ranAttackDefend() {
+    attackSymbol.style.display = 'block'
+    attackSymbol.style.backgroundColor = 'red'
+    defendSymbol.style.display = 'block'
+    defendSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
+    animateKnightSlash()
+    slashSound.play()
+    setTimeout(() => {
+        animateSlash()
+        console.log(ranMon)
+        setTimeout(() => {
+            ranMon.health = ranMon.health - char.attack
+            ranlifeCalc()
+            if(battle === true) {
+                enable()
+                attackSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
+                defendSymbol.style.backgroundColor = 'red'
+                document.onkeydown = function() {
+                    switch(event.code) {
+                        case "ArrowUp":
+                            playerBlock = 0
+                            ranDefendCalc()
+                            disable()
+                            break
+                        case "ArrowLeft":
+                            playerBlock = 1
+                            ranDefendCalc()
+                            disable()
+                            break
+                        case "ArrowRight":
+                            playerBlock = 2
+                            ranDefendCalc()
+                            disable()
+                            break
+                    }
+                }
+            }
+        },350)
+    },500)
+}
 
 function defendCalc() {
     let enemyAttack = Number(Math.floor(Math.random()*3))
     if(enemyAttack === playerBlock) {
+        shieldSound.play()
         mainChar.style.display = 'none'
         playerDefend.style.display = 'block'
+        animateAttackOnShield()
         setTimeout(() => {
             playerDefend.style.display = 'none'
             mainChar.style.display = 'block'
             attackDefend()
         },1500)
-    } else {
+    } else {            
+        enemyAttackSound.play()
         animateAttack()
         char.health = char.health + char.defense - skeleton.attack
+        ctx.clearRect(0,500,canvas.width,30)
+        drawHealth()
+        drawHeart()
         setTimeout(() => {
+
             attackDefend()
+    },1500)
+}
+}
+function ranDefendCalc() {
+    let enemyAttack = Number(Math.floor(Math.random()*3))
+    if(enemyAttack === playerBlock) {
+        shieldSound.play()
+        mainChar.style.display = 'none'
+        playerDefend.style.display = 'block'
+        animateAttackOnShield()
+        setTimeout(() => {
+            playerDefend.style.display = 'none'
+            mainChar.style.display = 'block'
+            ranAttackDefend()
+        },1500)
+    } else {
+        enemyAttackSound.play()
+        animateAttack()
+        char.health = char.health - ranMon.attack
+        ctx.clearRect(0,500,canvas.width,30)
+        drawHealth()
+        drawHeart()
+        setTimeout(() => {
+            ranAttackDefend()
     },1500)
 }
 }
@@ -373,13 +532,63 @@ function lifeCalc() {
         battle = false
         arrowKeysTwo.style.display = 'none'
         tutorialBattle.style.display = 'none'
+        attackSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
+        defendSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
+        attackSymbol.style.display = 'none'
+        defendSymbol.style.display = 'none'
+        skeleton.health = 5
         enable()
         blueRoomSelector()
     } else {
         battle=true
     }
 }
-
+function ranlifeCalc() {
+    if(char.health <= 0) {
+        alert("Game Over!")
+        window.location.reload()
+    } else if(ranMon.health <= 0) {
+        hideMonster()
+        battle = false
+        attackSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
+        defendSymbol.style.backgroundColor = 'rgb(238, 227, 227)'
+        attackSymbol.style.display = 'none'
+        defendSymbol.style.display = 'none'
+        ranMonRestore()
+        if(green === false) {
+        enable()
+        blueRoomSelector()
+        }
+    } else {
+        battle = true
+    }
+}
+function ranMonRestore() {
+    switch(ranMon) {
+        case skeleton:
+            skeleton.health = 5
+            break
+        case skeletonTwo:
+            skeletonTwo.health = 3
+            break
+        case skeletonThree:
+            skeletonThree.health = 3
+            break
+        case skeletonFour:
+            skeletonFour.health = 10
+            break
+        case skeletonFive:
+            skeletonFive.health = 5
+            break
+    }
+}
+function hideMonster () {
+    skelOne.style.display = 'none'
+    skelTwo.style.display = 'none'
+    skelThree.style.display = 'none'
+    skelFour.style.display = 'none'
+    skelFive.style.display = 'none'
+}
 function randomRoom() {
     let ran = Math.floor((Math.random()*4)+1)
     switch(ran) {
@@ -387,6 +596,8 @@ function randomRoom() {
             blueCount ++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueAll,0,0,700,500)
+            drawHeart()
+            drawHealth()
             p1.start()
             document.onkeydown = function() {
                 switch(event.code) {
@@ -505,6 +716,7 @@ function randomRoom() {
         }
     }
     function randomRoomGreen() {
+        green = true
         let ran = Math.floor((Math.random()*4)+1)
         switch(ran){
         case 1:
@@ -671,14 +883,17 @@ document.onkeydown = function() {
         case "ArrowUp":
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
         case "ArrowLeft":
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
         case "ArrowRight":
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
     }
 }
@@ -689,10 +904,12 @@ document.onkeydown = function() {
         case "ArrowLeft":
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
         case "ArrowRight":
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
     }
 }
@@ -703,10 +920,12 @@ document.onkeydown = function() {
         case "ArrowUp":     
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
         case "ArrowLeft":
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
     }
 }
@@ -717,38 +936,47 @@ document.onkeydown = function() {
         case "ArrowUp":
             blueRoomMove()                   
             p1.hide()
+            blueRanEncounter()
             break
         case "ArrowRight":
             blueRoomMove()
             p1.hide()
+            blueRanEncounter()
             break
     }
 }
 }
 function blueRoomSelector() {
+    console.log('hi')
     switch(room) {
         case "all":
-            blueRoomAll()
+            return blueRoomAll()
             break
         case "leftRight":
-            blueRoomLeftRight()
+            return blueRoomLeftRight()
             break
         case "upLeft":
-            blueRoomUpLeft()
+            return blueRoomUpLeft()
             break
         case "upRight":
-            blueRoomUpLeft()
+            return blueRoomUpRight()
             break
     }
 }
+function roomChoice(){
+    return Math.floor((Math.random()*4)+1)
+}
 function randomRoom2() {
-    let ran = Math.floor((Math.random()*4)+1)
+    let ran = roomChoice()
+    console.log(ran)
     switch(ran) {
         case 1:
             disable()
             blueCount++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueAll,0,0,700,500)
+            drawHealth()
+            drawHeart()
             p1.explore()
             room = "all"
             break            
@@ -757,6 +985,8 @@ function randomRoom2() {
             blueCount ++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueLeftRight,0,0,700,500)
+            drawHealth()
+            drawHeart()
             p1.explore()
             room = "leftRight"
             break
@@ -765,6 +995,8 @@ function randomRoom2() {
             blueCount ++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueUpLeft,0,0,700,500)
+            drawHealth()
+            drawHeart()
             p1.explore()
             room = "upLeft"
             break
@@ -773,10 +1005,10 @@ function randomRoom2() {
             blueCount ++
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(blueUpRight,0,0,700,500)
+            drawHealth()
+            drawHeart()
             p1.explore()
             room = "upRight"
-            console.log('hi')
-            enable()
             break
             }
 }

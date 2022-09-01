@@ -7,7 +7,7 @@
 #image {
     display: none;
     position: relative;
-    bottom: 420px;
+    bottom: 450px;
     left: 45%;
     width: 100px;
     height: 500px;
@@ -55,6 +55,37 @@
     background: url('./images/attack.png');
     background-size: cover;
     z-index: 1;
+}
+#attackOnShield {
+    display: none;
+    position: absolute;
+    bottom: 100px;
+    left: 44%;
+    width: 108px;
+    height: 200px;
+    background: url('./images/attack.png');
+    background-size: cover;
+    z-index: 1;
+}
+#attackSymbol{
+    display: none;
+    position: absolute;
+    top: 36%;
+    left: 5%;
+    font-family: newFont;
+    font-size: 0.7em;
+    border-radius: 12px;
+    background-color: rgb(238, 227, 227)
+}
+#defendSymbol{
+    display: none;
+    position: absolute;
+    top: 44%;
+    left: 5%;
+    font-family: newFont;
+    font-size: 0.7em;
+    border-radius: 12px;
+    background-color: rgb(238, 227, 227)
 }
 
 html,
