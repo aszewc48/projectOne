@@ -253,6 +253,7 @@ function blueRoomMove() {
 function stageGreen(){
     if(blueCount > 10 ) {
         randomRoomGreen()
+        green = true
     } else {
         randomRoom2()
     }
@@ -270,7 +271,8 @@ function greenRoomMove() {
 }
 
 function stageYellow() {
-    if(greenCount > 10 && (Math.random()*10) > 8.5) {
+    if(greenCount > 3) {
+        // && (Math.random()*10) > 8.5
         randomRoomYellow()
     } else {
         randomRoomGreen()
@@ -289,7 +291,8 @@ function yellowRoomMove() {
 }
 
 function stageExit() {
-    if(yellowCount > 10 && (Math.random()*10) > 8.5) {
+    if(yellowCount > 2) {
+        // && (Math.random()*10) > 8.5
         exitRoom()
     } else {
         randomRoomYellow()
@@ -494,7 +497,6 @@ function defendCalc() {
         drawHealth()
         drawHeart()
         setTimeout(() => {
-
             attackDefend()
     },1500)
 }
@@ -558,6 +560,8 @@ function ranlifeCalc() {
         if(green === false) {
         enable()
         blueRoomSelector()
+        } else {
+            greenRoomMove()
         }
     } else {
         battle = true
@@ -724,17 +728,21 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(greenAll,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
-                    case "ArrowUp":                   
+                    case "ArrowUp":
+                        disable()                   
                         greenRoomMove()
                         p1.hide()
                         break
                     case "ArrowLeft":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
                     case "ArrowRight":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
@@ -746,13 +754,16 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(greenLeftRight,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
                     case "ArrowLeft":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
                     case "ArrowRight":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
@@ -764,13 +775,16 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(greenUpLeft,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
-                    case "ArrowUp":                   
+                    case "ArrowUp":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
                     case "ArrowLeft":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
@@ -782,13 +796,16 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(greenUpRight,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
-                    case "ArrowUp":                   
+                    case "ArrowUp":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
                     case "ArrowRight":
+                        disable()
                         greenRoomMove()
                         p1.hide()
                         break
@@ -805,17 +822,21 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(yellowAll,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
-                    case "ArrowUp":                   
-                        yellowRoomMove()
+                    case "ArrowUp":     
+                        disable()              
+                        yellowRoomMove()                    
                         p1.hide()
                         break
                     case "ArrowLeft":
+                        disable()
                         yellowRoomMove()
                         p1.hide()
                         break
                     case "ArrowRight":
+                        disable()
                         yellowRoomMove()
                         p1.hide()
                         break
@@ -827,13 +848,16 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(yellowLeftRight,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
                     case "ArrowLeft":
+                        disable()
                         yellowRoomMove()
                         p1.hide()
                         break
                     case "ArrowRight":
+                        disable()
                         yellowRoomMove()
                         p1.hide()
                         break
@@ -845,13 +869,16 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(yellowUpLeft,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
-                    case "ArrowUp":                   
+                    case "ArrowUp":
+                        disable()                   
                         yellowRoomMove()
                         p1.hide()
                         break
                     case "ArrowLeft":
+                        disable()
                         yellowRoomMove()
                         p1.hide()
                         break
@@ -863,13 +890,16 @@ function randomRoom() {
             ctx.clearRect(0,0,700,500)
             ctx.drawImage(yellowUpRight,0,0,700,500)
             p1.explore()
+            enable()
             document.onkeydown = function() {
                 switch(event.code) {
                     case "ArrowUp":
+                        disable()
                         yellowRoomMove()
                         p1.hide()
                         break
                     case "ArrowRight":
+                        disable()
                         yellowRoomMove()
                         p1.hide()
                         break
