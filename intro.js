@@ -28,6 +28,7 @@ let defendSymbol = document.querySelector('#defendSymbol')
         arrowKeys.style.display = 'block'
         drawHealth()
         drawHeart()
+        loadAll()
     })
 
 const blueAll = new Image()
@@ -70,6 +71,20 @@ let yellowCount = 0
 
 let playerBlock
 
+function loadAll() {
+    exitOne.onload = function () {
+    ctx.drawImage(exitOne,0,0,700,500)
+    ctx.drawImage(exitTwo,0,0,700,500)
+    ctx.drawImage(yellowUpRight,0,0,700,500)
+    ctx.drawImage(yellowUpLeft,0,0,700,500)
+    ctx.drawImage(yellowLeftRight,0,0,700,500)
+    ctx.drawImage(yellowAll,0,0,700,500)
+    ctx.drawImage(greenUpRight,0,0,700,500)
+    ctx.drawImage(greenUpLeft,0,0,700,500)
+    ctx.drawImage(greenLeftRight,0,0,700,500)
+    ctx.drawImage(greenAll,0,0,700,500)
+    }
+    }
 function drawHeart() {
     ctx.drawImage(heart,0,490,50,50)
 }
@@ -599,7 +614,11 @@ function randomRoom() {
         case 1:
             blueCount ++
             ctx.clearRect(0,0,700,500)
+            blueLeftRight.onload = function () {
             ctx.drawImage(blueAll,0,0,700,500)
+            }
+            ctx.drawImage(blueAll,0,0,700,500)
+            loadAll()
             drawHeart()
             drawHealth()
             p1.start()
@@ -629,15 +648,17 @@ function randomRoom() {
                         arrowKeys.style.display = 'none'
                         tutorialEncounter()
                         break
+                    }
                 }
-            }
-            break
+                break
         case 2:
             blueCount ++
             ctx.clearRect(0,0,700,500)
-            // blueLeftRight.onload = function () {
+            blueLeftRight.onload = function () {
             ctx.drawImage(blueLeftRight,0,0,700,500)
-            // }
+            }
+            ctx.drawImage(blueLeftRight,0,0,700,500)
+            drawHeart()
             p1.start()
             document.onkeydown = function() {
                 switch(event.code) {
@@ -659,13 +680,15 @@ function randomRoom() {
                         break
                 }
             }
-            break
+        break
         case 3:
             blueCount++
             ctx.clearRect(0,0,700,500)
-            // blueUpLeft.onload = function () {
+            blueUpLeft.onload = function () {
             ctx.drawImage(blueUpLeft,0,0,700,500)
-            // }
+            }
+            ctx.drawImage(blueUpLeft,0,0,700,500)
+            drawHeart()
             p1.start()
             document.onkeydown = function() {
                 switch(event.code) {
@@ -688,13 +711,15 @@ function randomRoom() {
 
                 }
             }
-            break
+        break    
         case 4:
             blueCount++
             ctx.clearRect(0,0,700,500)
-            // blueUpRight.onload = function () {
+            blueUpRight.onload = function () {
             ctx.drawImage(blueUpRight,0,0,700,500)
-            // }
+            }
+            ctx.drawImage(blueUpRight,0,0,700,500)
+            drawHeart()
             p1.start()
             document.onkeydown = function() {
                 switch(event.code) {
@@ -716,7 +741,7 @@ function randomRoom() {
                         break
                 }
             }
-            break
+        break    
         }
     }
     function randomRoomGreen() {
@@ -1069,5 +1094,19 @@ function exitRoom() {
                     ctx.drawImage(exitTwo,0,0,700,500)
                     setTimeout(() => {  victory(); }, 1000); 
             }
+}
+}
+function loadAll() {
+exitOne.onload = function () {
+ctx.drawImage(exitOne,0,0,700,500)
+ctx.drawImage(exitTwo,0,0,700,500)
+ctx.drawImage(yellowUpRight,0,0,700,500)
+ctx.drawImage(yellowUpLeft,0,0,700,500)
+ctx.drawImage(yellowLeftRight,0,0,700,500)
+ctx.drawImage(yellowAll,0,0,700,500)
+ctx.drawImage(greenUpRight,0,0,700,500)
+ctx.drawImage(greenUpLeft,0,0,700,500)
+ctx.drawImage(greenLeftRight,0,0,700,500)
+ctx.drawImage(greenAll,0,0,700,500)
 }
 }
