@@ -28,7 +28,6 @@ let defendSymbol = document.querySelector('#defendSymbol')
         arrowKeys.style.display = 'block'
         drawHealth()
         drawHeart()
-        loadAll()
     })
 
 const blueAll = new Image()
@@ -56,7 +55,7 @@ greenAll.src = "./images/green all.png"
 greenLeftRight.src = "./images/green leftRight.png"
 greenUpLeft.src = "./images/green upLeft.png"
 greenUpRight.src = "./images/green upRight.png"
-yellowAll.src = "/images/yellow all.png"
+yellowAll.src = "./images/yellow all.png"
 yellowLeftRight.src = "./images/yellow leftRight.png"
 yellowUpLeft.src = "./images/yellow upLeft.png"
 yellowUpRight.src = "./images/yellow upRight.png"
@@ -289,6 +288,7 @@ function stageYellow() {
     if(greenCount > 3) {
         // && (Math.random()*10) > 8.5
         randomRoomYellow()
+        console.log('hi')
     } else {
         randomRoomGreen()
     }
@@ -306,7 +306,7 @@ function yellowRoomMove() {
 }
 
 function stageExit() {
-    if(yellowCount > 2) {
+    if(yellowCount > 3) {
         // && (Math.random()*10) > 8.5
         exitRoom()
     } else {
@@ -576,7 +576,25 @@ function ranlifeCalc() {
         enable()
         blueRoomSelector()
         } else {
-            greenRoomMove()
+            document.onkeydown = function() {
+                switch(event.code) {
+                    case "ArrowUp":
+                        disable()                   
+                        greenRoomMove()
+                        p1.hide()
+                        break
+                    case "ArrowLeft":
+                        disable()
+                        greenRoomMove()
+                        p1.hide()
+                        break
+                    case "ArrowRight":
+                        disable()
+                        greenRoomMove()
+                        p1.hide()
+                        break
+                }
+            }
         }
     } else {
         battle = true
@@ -615,10 +633,10 @@ function randomRoom() {
             blueCount ++
             ctx.clearRect(0,0,700,500)
             blueLeftRight.onload = function () {
+            loadAll()
             ctx.drawImage(blueAll,0,0,700,500)
             }
-            ctx.drawImage(blueAll,0,0,700,500)
-            loadAll()
+            ctx.drawImage(blueAll,0,0,700,500)            
             drawHeart()
             drawHealth()
             p1.start()
@@ -655,6 +673,7 @@ function randomRoom() {
             blueCount ++
             ctx.clearRect(0,0,700,500)
             blueLeftRight.onload = function () {
+            loadAll()
             ctx.drawImage(blueLeftRight,0,0,700,500)
             }
             ctx.drawImage(blueLeftRight,0,0,700,500)
@@ -685,6 +704,7 @@ function randomRoom() {
             blueCount++
             ctx.clearRect(0,0,700,500)
             blueUpLeft.onload = function () {
+            loadAll()
             ctx.drawImage(blueUpLeft,0,0,700,500)
             }
             ctx.drawImage(blueUpLeft,0,0,700,500)
@@ -716,6 +736,7 @@ function randomRoom() {
             blueCount++
             ctx.clearRect(0,0,700,500)
             blueUpRight.onload = function () {
+            loadAll()    
             ctx.drawImage(blueUpRight,0,0,700,500)
             }
             ctx.drawImage(blueUpRight,0,0,700,500)

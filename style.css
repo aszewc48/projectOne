@@ -118,13 +118,13 @@ h1{
     left: 41%
 }
 #tryAgain{
-    display:none;
+    display: none;
     font-family: newFont;
     font-size: 0.5em;
     border-radius: 12px;
     background-color: red;
     position: relative;
-    bottom: 220px;
+    bottom: 250px;
     left: 41%
 }
 .tutorial {
